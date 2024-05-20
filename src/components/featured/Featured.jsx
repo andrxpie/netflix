@@ -5,9 +5,11 @@ import "./featured.scss";
 const Featured = () => {
   return (
     <div className="featured">
+      <div className="shade"></div>
       <img
         src="https://occ-0-6347-1432.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABZV3oc2OQATQsy6yeUeM9VHELEgvaEbtELYwn2Q9COq2u9O0nZnK4xiCe7UomiMrvgzeCLEQ9Z-bKDKf7v82p0_dsj9cHWJcwSLv.jpg?r=10a&quot"
         alt="Featured"
+        className="background"
       />
       <div className="info">
         <img
@@ -20,7 +22,7 @@ const Featured = () => {
           <span className="sd-spacer"> I </span>
           <span className="age-rating">18+</span>
           <span className="sd-spacer"> I </span>
-          <a href="">Horror</a>
+          <a href="/category/horror">Horror</a>
         </span>
         <span className="desc">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
