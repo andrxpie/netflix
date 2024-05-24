@@ -1,10 +1,8 @@
-import Home from './home/Home';
-import './App.scss';
+import "./App.scss";
+import Home from "./pages/home/Home";
 
 function App() {
-  return (
-    <Home />
-  );
+  return <Home />;
 }
 
 export default App;
