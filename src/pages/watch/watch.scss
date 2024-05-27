@@ -1,0 +1,26 @@
+.watch {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+
+  .back {
+    top: 2%;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    color: white;
+    z-index: 2;
+    opacity: 0%;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 100%;
+    }
+  }
+
+  iframe {
+    width: 100%;
+    height: 99vh;
+  }
+}
