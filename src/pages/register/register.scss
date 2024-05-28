@@ -7,8 +7,7 @@
       rgba(0, 0, 0, 0.4962359943977591) 50%,
       rgba(0, 0, 0, 1) 100%
     ),
-    url("https://assets.nflxext.com/ffe/siteui/vlv3/a99688ca-33c3-4099-9baa-07a2e2acb398/3d34d71a-2584-4f03-bc04-9aefa85d2cf2/UA-en-20240520-popsignuptwoweeks-perspective_alpha_website_large.jpg");
-  position: relative;
+    url("../../assets/reg-log-background.jpg");
 
   .top {
     width: 80%;
@@ -25,7 +24,7 @@
       }
 
       .login-button {
-        background-color: red;
+        background-color: var(--sec-color);
         border: none;
         color: white;
         border-radius: 5px;
@@ -59,13 +58,16 @@
 
     .input {
       display: flex;
-      flex-grow: 1;
+      width: 600px;
 
       input {
+        color: white;
         background-color: rgba(0, 0, 0, 0.5);
         border: 1px solid gray;
         border-radius: 5px;
+        font-size: 18px;
         padding: 18px;
+        flex-grow: 1;
 
         &::placeholder {
           color: gray;
@@ -75,14 +77,14 @@
       .register-button {
         display: flex;
         align-items: center;
-        font-size: 20px;
-        background-color: red;
+        font-size: 25px;
+        background-color: var(--sec-color);
         color: white;
         border: none;
-        padding: 18px;
+        padding: 18px 10px 18px 18px;
         border-radius: 5px;
         margin-left: 10px;
-        width: 300px;
+        cursor: pointer;
 
         .icon {
           height: 30px;

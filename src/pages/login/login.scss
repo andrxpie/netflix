@@ -1,0 +1,88 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../assets/reg-log-background.jpg");
+  display: none;
+
+  .top {
+    width: 80%;
+    margin: auto;
+
+    .wrapper {
+      padding: 20px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .logo {
+        height: 180px;
+      }
+    }
+  }
+
+  .container {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    padding: 65px;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h1 {
+        font-size: 40px;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+
+      input {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        border: 1px solid gray;
+        border-radius: 5px;
+        font-size: 18px;
+        padding: 18px;
+        flex-grow: 1;
+        margin-bottom: 10px;
+
+        &::placeholder {
+          color: gray;
+        }
+      }
+
+      .login-button {
+        font-size: 25px;
+        background-color: var(--sec-color);
+        color: white;
+        border: none;
+        font-weight: bold;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+
+      .light-info {
+        color: lightgray;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .info {
+        color: gray;
+        font-size: 14px;
+
+        .more {
+          color: rgb(53, 53, 255);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
