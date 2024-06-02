@@ -4,7 +4,6 @@
   background-color: black;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../../assets/reg-log-background.jpg");
-  display: none;
 
   .top {
     width: 80%;
@@ -72,6 +71,15 @@
         color: lightgray;
         font-size: 16px;
         margin-bottom: 10px;
+
+        .to-register {
+          color: white;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
 
       .info {
@@ -81,6 +89,7 @@
         .more {
           color: rgb(53, 53, 255);
           text-decoration: underline;
+          cursor: pointer;
         }
       }
     }

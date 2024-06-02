@@ -91,6 +91,25 @@
           width: 30px;
         }
       }
+
+      .datepicker {
+        color: black;
+        background-color: white;
+      }
+    }
+
+    .vertical {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        margin-bottom: 10px;
+      }
+
+      .start {
+        margin-left: 0;
+        justify-content: center;
+      }
     }
   }
 }

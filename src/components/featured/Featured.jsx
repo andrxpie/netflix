@@ -1,37 +1,61 @@
 import { PlayArrow } from "@mui/icons-material";
 import InfoIcon from "@mui/icons-material/Info";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { moviesService } from "../../server/movies";
+import { NavbarContext } from "../../contexts/navbar.context";
 import "./featured.scss";
 
 const Featured = () => {
+  const [movie, setMovie] = useState(null);
+  const navigate = useNavigate();
+  const { switchNav } = useContext(NavbarContext);
+
+  useEffect(() => {
+    function randomNumberInRange(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const getMovie = async () => {
+      const fetchedMovie = await moviesService.getById(randomNumberInRange(1, 4));
+      setMovie(fetchedMovie.data);
+      console.log(fetchedMovie.data);
+    };
+
+    getMovie();
+  }, []);
+
+  if (!movie) {
+    return <div>Loading...</div>;
+  }
+
+  const handleWatch = () => {
+    const encodedSrc = encodeURIComponent(movie.video);
+    navigate(`watch/${encodedSrc}`);
+  };
+
   return (
     <div className="featured">
       <div className="shade"></div>
-      <img
-        src="https://occ-0-6347-1432.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABZV3oc2OQATQsy6yeUeM9VHELEgvaEbtELYwn2Q9COq2u9O0nZnK4xiCe7UomiMrvgzeCLEQ9Z-bKDKf7v82p0_dsj9cHWJcwSLv.jpg?r=10a&quot"
-        alt="Featured"
-        className="background"
-      />
+      <img src={movie.image} alt="Featured" className="background" />
       <div className="info">
-        <img
-          src="https://occ-0-6347-1432.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABTOsbl-O25G1LCw87hN2X2wsjneoFU8iENl-GBImq_Q64cMZhuXwdcNq-vsy7PEOH7nwaJf3TcX6XjLWhwnT_Iu_mlH6PDIjUqj6kKfeDF6f.png?r=f1a"
-          alt="title"
-        />
-        <span className="title">The Walking Dead</span>
+        <span className="title">{movie.title}</span>
         <span className="short-desc">
-          2010
+          {movie.year}
           <span className="sd-spacer"> I </span>
-          <span className="age-rating">18+</span>
+          <span className="age-rating">{movie.limit}+</span>
           <span className="sd-spacer"> I </span>
-          <a href="/category/horror">Horror</a>
+          <Link to={"/genre/" + movie.genreName}>{movie.genreName}</Link>
         </span>
-        <span className="desc">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione
-          numquam nemo hic eligendi necessitatibus, a laborum odit iure quia
-          facere voluptate tempora commodi officia, sequi culpa ab deserunt,
-          quibusdam nam!
-        </span>
+        <span className="desc">{movie.description}</span>
         <div className="buttons">
-          <button className="play">
+          <button
+            className="play"
+            onClick={() => {
+              handleWatch();
+              switchNav(false);
+            }}
+          >
             <PlayArrow />
             <span>Play</span>
           </button>

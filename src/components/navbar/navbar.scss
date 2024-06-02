@@ -4,12 +4,8 @@
   font-size: 14px;
   position: fixed;
   top: 0;
-  z-index: 10;
-  background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.9) 100%);
-
-  &.scrolled {
-    background-color: var(--main-color);
-  }
+  z-index: 1;
+  background: var(--main-color);
 
   .container {
     padding: 0 50px;
@@ -27,7 +23,11 @@
         margin-right: 40px;
       }
 
-      span {
+      .links {
+        display: flex;
+        align-items: center;
+        color: white;
+        text-decoration: none;
         margin-right: 20px;
         cursor: pointer;
       }
@@ -36,6 +36,17 @@
     .right {
       display: flex;
       align-items: center;
+
+      .login-button {
+        background-color: var(--sec-color);
+        border: none;
+        color: white;
+        border-radius: 5px;
+        padding: 5px 15px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
 
       .icon {
         margin: 0 15px;

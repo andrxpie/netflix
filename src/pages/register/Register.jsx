@@ -1,28 +1,60 @@
 import "./register.scss";
 import logo from "../../assets/logo.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { useRef, useState } from "react";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { accountsService } from "../../server/accounts";
+import { NavbarContext } from "../../contexts/navbar.context";
+import { SwipeTwoTone } from "@mui/icons-material";
 
 export default function Register() {
+  const { switchNav } = useContext(NavbarContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [date, setDate] = useState("");
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
-
-  const handleStart = () => {
-    setEmail(emailRef.current.value);
+  const handleEmail = () => {
+    const emailRef = document.getElementById("emailInput");
+    setEmail(emailRef.value);
   };
-  const handleFinish = () => {
-    setPassword(passwordRef.current.value);
+
+  const handlePassword = () => {
+    const passwordRef = document.getElementById("passwordInput");
+    setPassword(passwordRef.value);
+  };
+
+  const handleDate = () => {
+    const dateRef = document.getElementById("dateInput");
+    setDate(dateRef.value);
+  };
+
+  const onSubmit = async (values) => {
+    const res = await accountsService.register(values);
+
+    if (res.status !== 200) {
+      alert("Something went wrong!");
+      return;
+    }
+
+    alert("You registered in successfully!");
   };
 
   return (
     <div className="register">
       <div className="top">
         <div className="wrapper">
-          <img className="logo" src={logo} alt="" />
-          <button className="login-button">Sign In</button>
+          <Link
+            to="/"
+            onClick={() => {
+              switchNav(true);
+            }}
+          >
+            <img className="logo" src={logo} alt="" />
+          </Link>
+          <Link to="/login">
+            <button className="login-button">Sign In</button>
+          </Link>
         </div>
         <div className="container">
           <h1>Unlimited movies, TV shows, and more</h1>
@@ -33,16 +65,39 @@ export default function Register() {
           </p>
           {!email ? (
             <div className="input">
-              <input type="email" placeholder="Email address" ref={emailRef} />
-              <button className="register-button" onClick={handleStart}>
+              <input type="email" placeholder="Email address" id="emailInput" />
+              <button
+                className="register-button"
+                onClick={() => {
+                  handleEmail();
+                }}
+              >
                 Get Started
                 <KeyboardArrowRightIcon className="icon" />
               </button>
             </div>
           ) : (
-            <form className="input">
-              <input type="password" placeholder="Password" ref={passwordRef} />
-              <button className="register-button" onClick={handleFinish}>
+            <form className="input vertical">
+              <input
+                type="password"
+                placeholder="Password"
+                id="passwordInput"
+                onChange={() => {
+                  handlePassword();
+                }}
+              />
+              <input
+                type="date"
+                className="datepicker"
+                id="dateInput"
+                onChange={() => {
+                  handleDate();
+                }}
+              />
+              <button
+                className="register-button start"
+                onClick={() => onSubmit()}
+              >
                 Start
               </button>
             </form>

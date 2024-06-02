@@ -1,13 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { AccountsProvider } from "./contexts/account.context";
+import { NavbarProvider } from "./contexts/navbar.context";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <AccountsProvider>
+    <NavbarProvider>
+      <App />
+    </NavbarProvider>
+  </AccountsProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
