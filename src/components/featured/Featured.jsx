@@ -4,10 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { moviesService } from "../../server/movies";
 import { NavbarContext } from "../../contexts/navbar.context";
+import { genresService } from "../../server/genres";
 import "./featured.scss";
 
 const Featured = () => {
   const [movie, setMovie] = useState(null);
+  const [genres, setGenres] = useState(null);
   const navigate = useNavigate();
   const { switchNav } = useContext(NavbarContext);
 
@@ -23,6 +25,14 @@ const Featured = () => {
     };
 
     getMovie();
+
+    const getGenres = async () => {
+      const fetchedGenres = await genresService.get();
+      setGenres(fetchedGenres.data);
+      console.log(fetchedGenres.data);
+    };
+
+    getGenres();
   }, []);
 
   if (!movie) {
@@ -45,7 +55,7 @@ const Featured = () => {
           <span className="sd-spacer"> I </span>
           <span className="age-rating">{movie.limit}+</span>
           <span className="sd-spacer"> I </span>
-          <Link to={"/genre/" + movie.genreName}>{movie.genreName}</Link>
+          <Link to={"/genre/" + genres[movie.genreId].title}>{genres[movie.genreId - 1].title}</Link>
         </span>
         <span className="desc">{movie.description}</span>
         <div className="buttons">

@@ -2,8 +2,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import AddIcon from "@mui/icons-material/Add";
-import "./listItem.scss";
 import { useState } from "react";
+import "./listItem.scss";
 
 export default function ListItem({ index }) {
   const [isHovered, setIsHovered] = useState(false);

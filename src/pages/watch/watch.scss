@@ -4,14 +4,20 @@
 
   .back {
     top: 2%;
-    width: 100%;
+    left: 47.4%;
     position: absolute;
     text-align: center;
     color: white;
+    background-color: var(--sec-color);
     z-index: 2;
     opacity: 0%;
     transition: 0.2s;
     cursor: pointer;
+    font-size: 25px;
+    border: none;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 5px;
 
     &:hover {
       opacity: 100%;

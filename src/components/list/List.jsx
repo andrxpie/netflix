@@ -1,13 +1,38 @@
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ListItem from "../listItem/ListItem";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./list.scss";
+import { moviesService } from "../../server/movies";
+import { genresService } from "../../server/genres";
 
-export default function List() {
+export default function List({ selection }) {
+  const [movies, setMovies] = useState(null);
+  const [genres, setGenres] = useState(null);
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
   const listRef = useRef();
+
+  useEffect(() => {
+    const getMovies = async () => {
+      const fetchedMovies = await moviesService.getBySelectionId();
+      setMovies(fetchedMovies.data);
+      console.log(fetchedMovies.data);
+    };
+
+    getMovies();
+
+    const getGenres = async () => {
+      const fetchedGenres = await genresService.get();
+      setGenres(fetchedGenres.data);
+    };
+
+    getGenres();
+  }, []);
+
+  if (!movies) {
+    return <div>Loading...</div>;
+  }
 
   const handleClick = (direction) => {
     setIsMoved(true);
@@ -25,7 +50,7 @@ export default function List() {
 
   return (
     <div className="list">
-      <span className="list-title">Continue to watch</span>
+      <span className="list-title">{selection.title}</span>
       <div className="wrapper">
         <ArrowBackIosNewIcon
           className="slider-arrow left"
@@ -34,15 +59,6 @@ export default function List() {
         />
         <div className="container" ref={listRef}>
           <ListItem index={0} />
-          <ListItem index={1} />
-          <ListItem index={2} />
-          <ListItem index={3} />
-          <ListItem index={4} />
-          <ListItem index={5} />
-          <ListItem index={6} />
-          <ListItem index={7} />
-          <ListItem index={8} />
-          <ListItem index={9} />
         </div>
         <ArrowForwardIosIcon
           className="slider-arrow right"
