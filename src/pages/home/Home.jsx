@@ -17,14 +17,16 @@ const Home = () => {
     getSelections();
   }, []);
 
+  if (!selections) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="home">
       <Featured />
-      {
-        selections.map(selection => (
-          <List selection={selection} />
-        ))
-      }
+      {selections.map((selection) => (
+        <List selection={selection} />
+      ))}
     </div>
   );
 };

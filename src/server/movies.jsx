@@ -24,6 +24,9 @@ export const moviesService = {
   getById: function (id) {
     return api.get(`${id}`);
   },
+  getBySelectionId: function (id) {
+    return api.get(`selection-${id}`);
+  },
   create: function (model) {
     const formData = new FormData();
 

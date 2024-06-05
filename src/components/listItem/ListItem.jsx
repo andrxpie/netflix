@@ -2,11 +2,35 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import AddIcon from "@mui/icons-material/Add";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { genresService } from "../../server/genres";
+import { NavbarContext } from "../../contexts/navbar.context";
+import { Link, useNavigate } from "react-router-dom";
 import "./listItem.scss";
 
-export default function ListItem({ index }) {
+export default function ListItem({ index, movie }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [genres, setGenres] = useState(null);
+  const navigate = useNavigate();
+  const { switchNav } = useContext(NavbarContext);
+
+  useEffect(() => {
+    const getGenres = async () => {
+      const fetchedGenres = await genresService.get();
+      setGenres(fetchedGenres.data);
+    };
+
+    getGenres();
+  }, []);
+
+  if (movie === null) {
+    return <div>Loading...</div>;
+  }
+
+  const handleWatch = () => {
+    const encodedSrc = encodeURIComponent(movie.video);
+    navigate(`watch/${encodedSrc}`);
+  };
 
   return (
     <div
@@ -15,14 +39,11 @@ export default function ListItem({ index }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img
-        src="https://occ-0-1432-1433.1.nflxso.net/dnm/api/v6/Qs00mKCpRvrkl3HZAN5KwEL1kpE/AAAABfPnp-OV6vtYGCC7XAYfBo0-la3wLVhRHQWH2KT5G6xDmIPBlYOqoUVTUDhi8sufpXvGbCG_6ieQk70uB38BDnYHYK0qOBz75NJL.jpg?r=955"
-        alt=""
-      />
+      <img src={movie.image} alt="" />
       {isHovered && (
         <>
           <iframe
-            src="https://www.youtube.com/embed/mzOilOUWsow?si=TyhpObbpIsygDshk&amp;controls=0"
+            src={movie.video}
             title="YouTube video player"
             frameborder="0"
             allow="clipboard-write; encrypted-media"
@@ -30,21 +51,29 @@ export default function ListItem({ index }) {
           ></iframe>
           <div className="item-info">
             <div className="icons">
-              <PlayArrowIcon className="icon" />
+              <PlayArrowIcon
+                className="icon"
+                onClick={() => {
+                  handleWatch();
+                  switchNav(false);
+                }}
+              />
               <AddIcon className="icon" />
               <ThumbUpOffAltIcon className="icon" />
               <ThumbDownOffAltIcon className="icon" />
             </div>
             <div className="item-info-top">
-              <span>1 hour 14 mins</span>
+              <span>{movie.duration}</span>
               <span className="limit">18+</span>
-              <span>1999</span>
-              <span className="genre">Action</span>
+              <span>{movie.year}</span>
+              <Link
+                className="genre"
+                to={"/genre/" + genres[movie.genreId - 1].title}
+              >
+                {genres[movie.genreId - 1].title}
+              </Link>
             </div>
-            <div className="desc">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-              quos enim similique culpa.
-            </div>
+            <div className="desc">{movie.description}</div>
           </div>
         </>
       )}

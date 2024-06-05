@@ -8,26 +8,18 @@ import { genresService } from "../../server/genres";
 
 export default function List({ selection }) {
   const [movies, setMovies] = useState(null);
-  const [genres, setGenres] = useState(null);
   const [isMoved, setIsMoved] = useState(false);
   const [slideNumber, setSlideNumber] = useState(0);
   const listRef = useRef();
 
   useEffect(() => {
     const getMovies = async () => {
-      const fetchedMovies = await moviesService.getBySelectionId();
+      const fetchedMovies = await moviesService.getBySelectionId(selection.id);
       setMovies(fetchedMovies.data);
       console.log(fetchedMovies.data);
     };
 
     getMovies();
-
-    const getGenres = async () => {
-      const fetchedGenres = await genresService.get();
-      setGenres(fetchedGenres.data);
-    };
-
-    getGenres();
   }, []);
 
   if (!movies) {
@@ -58,7 +50,9 @@ export default function List({ selection }) {
           style={{display: !isMoved && 'none'}}
         />
         <div className="container" ref={listRef}>
-          <ListItem index={0} />
+          {movies.map((movie, index) => (
+            <ListItem index={index} movie={movie} />
+          ))}
         </div>
         <ArrowForwardIosIcon
           className="slider-arrow right"

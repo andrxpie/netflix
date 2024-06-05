@@ -19,7 +19,7 @@ const Featured = () => {
     }
 
     const getMovie = async () => {
-      const fetchedMovie = await moviesService.getById(randomNumberInRange(1, 4));
+      const fetchedMovie = await moviesService.getById(randomNumberInRange(1, 3));
       setMovie(fetchedMovie.data);
       console.log(fetchedMovie.data);
     };
@@ -35,7 +35,11 @@ const Featured = () => {
     getGenres();
   }, []);
 
-  if (!movie) {
+  if (movie === null) {
+    return <div>Loading...</div>;
+  }
+
+  if (genres === null) {
     return <div>Loading...</div>;
   }
 
